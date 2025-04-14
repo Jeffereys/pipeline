@@ -1,13 +1,51 @@
 # RV32I Pipelined Processor (5-Stage)
 
-This project implements a modular 5-stage pipelined RISC-V processor (RV32I base ISA) in SystemVerilog. It is designed to be synthesized for FPGAs or simulated for instruction-level debugging.
+This project implements a modular 5-stage pipelined RISC-V processor
 
 ---
 
 ## 📁 Folder Structure
 
-rv32i_pipeline/ ├── top_level/ │ └── pipeline_top.sv │ └── top_level.sv ├── stages/ │ └── rv32_if_top.sv │ └── rv32_id_top.sv │ └── rv32_ex_top.sv │ └── rv32_mem_top.sv │ └── rv32_wb_top.sv ├── pipeline_registers/ │ └── id_ex_reg.sv │ └── ex_mem_reg.sv │ └── mem_wb_reg.sv ├── components/ │ └── alu.sv │ └── rv32i_regs.sv │ └── dual_port_ram.sv │ └── memory_io_unit.sv │ └── branch_unit.sv ├── control/ │ └── rv32_decoder.sv │ └── control_unit.sv │ └── imm_decoder.sv │ └── hazard_unit.sv (optional) ├── debug/ │ └── debug_tap.sv ├── test/ │ └── tb_pipeline.sv │ └── ram.hex └── README.md
-
+rv32i_pipeline/
+├── pipeline_top.sv         # Main pipeline integration
+├── tb_pipeline.sv          # Testbench for simulation
+├── ram.hex                 # Memory contents (program)
+│
+├── if_stage/               # Instruction Fetch stage
+│   └── rv32_if_top.sv
+│
+├── id_stage/               # Instruction Decode stage
+│   ├── rv32_id_top.sv
+│   ├── rv32_decoder.sv
+│   ├── imm_decoder.sv
+│   └── control_unit.sv
+│
+├── ex_stage/               # Execute stage
+│   ├── rv32_ex_top.sv
+│   └── alu.sv
+│
+├── mem_stage/              # Memory access stage
+│   ├── rv32_mem_top.sv
+│   └── memory_io_unit.sv   # Handles load/store formatting
+│   └── dual_port_ram.sv    # RAM for instruction/data access
+│
+├── wb_stage/               # Writeback stage
+│   └── rv32_wb_top.sv
+│
+├── registers/              # Register file
+│   └── rv32i_regs.sv
+│
+├── pipeline_regs/          # Pipeline registers
+│   ├── id_ex_reg.sv
+│   ├── ex_mem_reg.sv
+│   └── mem_wb_reg.sv
+│
+├── support/                # Optional/recommended utilities
+│   ├── hazard_unit.sv      # (optional) stall/forwarding logic
+│   ├── branch_unit.sv      # (optional) branch cond eval
+│   └── debug_tap.sv        # (optional) waveform/debug print
+│
+└── README.md               # Project description and usage
 
 yaml
 ---
@@ -83,8 +121,6 @@ Copy
 Edit
 
 ---
-
-Let me know if you'd like a Quartus or Vivado project wrapper, or to export this as a zip
 
 📦 Expected Files in the Same Directory:
 python
