@@ -109,7 +109,7 @@ I/O-mapped peripherals (GPIO, UART)
 Branch prediction and out-of-order extensions
 
 👤 Authors
-Designed by: [Your Name]
+Designed by: JS
 
 Based on UT Arlington CSE4372/5392 project structure
 
